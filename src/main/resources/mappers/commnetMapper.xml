@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.sns.comment.Dao.CommnetMapper">
+ 
+ 	<insert id="insertComment" parameterType="map">
+ 		INSERT INTO `comment`
+ 		(
+	 		`postId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{postId}
+ 			,#{userId}
+ 			,#{comment}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	
+ 	</insert>
+ 	
+ 	<select id="selectCommentByUserIdPostId" parameterType="map" resultType="com.sns.comment.Model.Comment">
+ 		SELECT
+		 	`id`
+			,`postId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`comment`
+ 	</select>
+ 	<delete id="deleteComment" parameterType="int">
+ 		DELETE
+ 		FROM `comment`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
+ 	
+ 	<select id="generateCommentViewList" parameterType="int" resultType="com.sns.comment.Model.Comment">
+ 		SELECT
+		 	`id`
+			,`postId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`comment`
+		WHERE
+			`postId` = #{postId}
+ 	</select>
+ 	<delete id="deleteCommentByPostId" parameterType="int">
+ 		DELETE
+ 		FROM `comment`
+ 		WHERE
+ 			`postId` = #{postId}
+ 	</delete>
+ 
+ </mapper>

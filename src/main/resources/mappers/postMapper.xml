@@ -3,13 +3,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace="com.sns.post.dao.PostMapper">
- 	<select id="selectPostList" resultType="map">
- 		SELECT
- 			*
- 		FROM
- 			`post`
- 	 	
- 	</select>
+ <mapper namespace="com.sns.post.Dao.PostMapper">
+ 
+ <insert id="insertPost" parameterType="map">
+ 	INSERT INTO `post`
+ 	(
+	 	`userId`
+		,`content`
+		,`imagePath`
+		,`createdAt`
+		,`updatedAt`
+ 	)
+ 	VALUES
+ 	(
+ 		#{userId}
+ 		,#{content}
+ 		,#{imagePath}
+ 		,NOW()
+ 		,NOW()
+ 	)
+ 
+ </insert>
+ 
+ <select id="selectPost" resultType="com.sns.post.model.Post">
+ 	SELECT 
+	 	`id`
+		,`userId`
+		,`content`
+		,`imagePath`
+		,`createdAt`
+		,`updatedAt`
+	FROM
+		`post`
+	Order by `id` DESC;
+ 
+ 
+ </select>
+ 
+ <delete id="deletePost" parameterType="map">
+ 	DELETE
+ 	FROM
+ 		`post`
+ 	WHERE
+ 		`id` = #{postId}
+ 		AND `userId` = #{userId}
+ 
+ </delete>
+ 
+ <select id="selectPostByPostIdUserId" parameterType="map" resultType="com.sns.post.model.Post">
+ 	SELECT 
+	 	`id`
+		,`userId`
+		,`content`
+		,`imagePath`
+		,`createdAt`
+		,`updatedAt`
+	FROM
+		`post`
+	WHERE
+		`id` = #{postId}
+		AND `userId` = #{userId}
+ </select>
  
  </mapper>
