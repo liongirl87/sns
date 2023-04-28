@@ -64,5 +64,6 @@
 		`id` = #{postId}
 		AND `userId` = #{userId}
  </select>
+
  
  </mapper>
